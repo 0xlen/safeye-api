@@ -18,12 +18,14 @@ if (isset($cache[$scan_url])) {
     $data = array_merge($data, (array)$options);
 
     $url_scanner = new API('/url/report', $data);
-    $url_scanner->outputJSON();
 
     try {
-        if ($url_scanner->getResult()->response_code == 1 && isset($url_scanner->getResult()->positives)) {
-            saveCache(json_decode($url_scanner->getResult(), true));
+        $result = json_decode($url_scanner->getResult(), true);
+        if (($result['response_code'] == 1) && isset($result['positives']) && isset($result['total'])) {
+            saveCache($result);
         }
+
+        $url_scanner->outputJSON();
     } catch (\Exception $e) {
         echo $e->getCode() . ':' . $e->getMessage();
     }

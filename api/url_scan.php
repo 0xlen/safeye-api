@@ -21,7 +21,9 @@ if (isset($cache[$scan_url])) {
     $url_scanner->outputJSON();
 
     try {
-        saveCache(json_decode($url_scanner->getResult(), true));
+        if ($url_scanner->getResult()->response_code == 1 && isset($url_scanner->getResult()->positives)) {
+            saveCache(json_decode($url_scanner->getResult(), true));
+        }
     } catch (\Exception $e) {
         echo $e->getCode() . ':' . $e->getMessage();
     }

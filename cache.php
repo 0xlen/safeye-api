@@ -22,7 +22,9 @@ function saveCache($item)
     {
         print_r($data);
     } else {
-        file_put_contents(JSON_FILE, json_encode($data));
+        if ($data !== null) {
+            file_put_contents(JSON_FILE, json_encode($data));
+        }
     }
 }
 

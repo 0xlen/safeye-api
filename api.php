@@ -32,6 +32,11 @@ class API {
         echo $this->curl->getResult();
     }
 
+    public function getResult()
+    {
+        return $this->curl->getResult();
+    }
+
     private function Load()
     {
         $path = dirname(__FILE__) . '/.config';
